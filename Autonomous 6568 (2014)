@@ -1,0 +1,66 @@
+#pragma config(Hubs,  S1, HTMotor,  none,     none,     none)
+#pragma config(Sensor, S4,     sonar,          sensorSONAR)
+#pragma config(Motor,  mtr_S1_C1_1,     left,          tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_2,     right,         tmotorTetrix, openLoop)
+
+
+//pseudocode
+
+
+void postFullRot()
+{
+
+// code here
+
+}
+
+void postHalfRot()
+{
+
+// code here
+
+}
+
+void postNotRot()
+{
+
+// code here
+
+}
+
+
+void positionDrive()
+  {
+  char state;
+
+  if (SensorValue(sonar) < 123 && SensorValue > 118) // post rotated all the way
+	  state = 'a';
+  if (SensorValue(sonar) < 128 && SensorValue > 123) // post rotated halfway
+	  state = 'b';
+  if (SensorValue(sonar) > 128 && SensorValue(sonar) < 135) // post in middle
+	  state = 'c';
+	  
+	  switch(range)
+	    {
+	    case a :
+	      postFullRot();
+	      break;
+	    case b :
+	      postHalfRot();
+	      break;
+	    case c :
+	      postNotRot();
+	      break;
+	   }   
+	   
+  }
+  
+
+
+
+
+task main()
+{
+   positionDrive();
+}
+  
