@@ -423,27 +423,27 @@ void def()
 
   nMotorEncoder[rightMotor] = 0;
 
-	tHTIRS2DSPMode _mode = DSP_1200;
-  short dirAC = HTIRS2readACDir(ir);
+	tHTIRS2DSPMode _mode = DSP_1200; //IR Reader mode - copy and paste this
+  short dirAC = HTIRS2readACDir(ir); //Here the robot gets the IR Sensor values
 
- 	while(dirAC != 5 && !boundary)
+ 	while(dirAC != 5 && !boundary) //IR Values are between 1 and 9, if it is not the desired value and below the desired value, it will drive forward
   {
-  	if(nMotorEncoder[rightMotor] >= 1090)
+  	if(nMotorEncoder[rightMotor] >= 1090) //initiate when encoders are greater than or equal to 1090
   	{
   		boundary = true;
   	}
-  	dirAC = HTIRS2readACDir(ir);
-  	motor[rightMotor] = 30;
+  	dirAC = HTIRS2readACDir(ir); //continuously grab new IR values
+  	motor[rightMotor] = 30; //drive slowly in order to avoid missing IR values
   	motor[leftMotor] = 30;
   	wait1Msec(10);
 	}
 
-	driveMotors(0, 0, 500);
+	driveMotors(0, 0, 500); //drivemotors method, see below
 
-	while(dirAC != 6 && boundary)
+	while(dirAC != 6 && boundary) //If the value is not 6 but is equal to the boundary 
 	{
 		dirAC = HTIRS2readACDir(ir);
-  	motor[rightMotor] = -30;
+  	motor[rightMotor] = -30; //drive back since it is equal to the boundary
   	motor[leftMotor] = -30;
   	wait1Msec(10);
 	}
